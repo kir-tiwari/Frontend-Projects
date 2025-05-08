@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirti Tiwari {DEVELOPER} </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body{
+            background-color: rgb(41, 10, 99);
+            font-family: "Montserrat", serif;
+            color: #f3f3f3;
+            line-height: 1.6;
+            
+        }
+        *{
+            margin:0;
+            padding:0;
+
+        }
+        nav{
+            height: 80px;
+            background-color: rgb(69, 5, 115);
+            display:flex;
+            justify-content: space-around;
+            align-items:center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            
+        }
+        nav ul{
+            display:flex;
+            justify-content: center;
+            gap:20px;
+        }
+        nav ul li{
+            list-style:none;
+            margin: 0.23px;
+            cursor: pointer;
+        }
+        nav ul li:hover {
+    color: rgb(116, 242, 229); /* Changes text color on hover */
+    transition: 0.3s;
+    transform: scale(1.05);
+}
+      
+        .left{
+            font-size: 48px;
+            padding-left: 20px; 
+            padding-top: ;
+            color:white;
+        } 
+        .firstsection {
+            display:flex;
+            justify-content: space-around;
+            margin:130px ;
+            
+        }
+        .firstsection > div{
+            width:50%;
+            /* background-color:rgb(87, 55, 100) ; */
+
+        }
+        .leftsection{
+            width:40px;
+            font-size:32px;
+            margin-top: 30px;
+
+        }
+       
+        .image{
+            height: 100%;
+            width:100%;
+            margin:20px;
+        }
+        .image {
+            max-width: 100%; 
+            height: auto; 
+            display: block; 
+}
+        .purple{
+            color:rgb(116, 242, 229)
+        }
+        .gray{
+            color:gray
+        }
+        .btn{
+            display: fixed;
+            background-color:rgb(30, 6, 74);
+            border: 1px solid rgb(116, 242, 229);
+            border-radius: 3.5px;
+            color:rgb(116, 242, 229);
+            padding:10px;
+            cursor: pointer;
+        }
+        .btn:hover{
+            transform: scale(1.05);
+        }
+        /* .right{
+            margin-left: 50%;
+        } */
+        .secondsection{
+            max-width:80vw ;
+            margin:auto;
+            
+
+        }
+        .secondsection h1{
+            font-size: 1.5rem;
+        }
+         main hr{
+          border:0;
+          background: rgb(220, 179, 248);
+          height:1.2px;
+          margin:40px 84px; 
+        }
+    </style>
+    <body id="home">
+</head>
+        <nav>
+            <div class="left">
+                <b>Kirti's Portfolio</b>
+            </div>
+            <div class="right">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Project</a></li>                    
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </head>
+        <main  >
+        <section class="firstsection">
+            <div class="leftsection">
+                Hi, My name is <span class="purple">Kirti</span>
+                <div>and I am a passionate</div>
+                <span id="element" class="purple"><i></i></span>       
+                <div>
+                <button class="btn">Download Resume</button>
+                <button class="btn">View Github</button>
+                <button class="btn">Visit LinkedIN</button>
+                </div>
+            </div>
+            <div class="rightsection">
+                <img src="g.png" class="image">
+        </section>
+        
+        
+        <section id="about" class="secondsection">
+            <h1>About Me</h1>
+            <p>Aspiring Computer Science Engineer | Web Developer | Creative Technologist | Problem-Solver</p>
+        </section>
+        
+        <hr>
+        
+        <section id="services">
+            <h1>Services</h1>
+            <p>I offer web development, Python programming, and video editing services.</p>
+        </section>
+        
+        <hr>
+        
+        <section id="projects">
+            <h1>Projects</h1>
+            <p>Here are some of my recent projects...</p>
+        </section>
+        
+        <hr>
+        
+        <section id="contact">
+            <h1>Contact Me</h1>
+            <p>Email: tiwarikirti944@gmail.com</p>
+            <p>LinkedIn: linkedin.com/in/yourname</p>
+        </section>
+    </main>
+        
+
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed('#element', {
+          strings: ['Web Developer', 'Python Developer','Video Editor'],
+          typeSpeed: 40,
+        });
+
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+
+      </script>
+
+
+
+
+
+</body>
+</html>

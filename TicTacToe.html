@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            font-family: fantasy;
+            
+        }
+        body{
+            background-color:rgb(202, 255, 242) ;
+        }
+        nav{
+           background-color: rgb(118, 227, 190);
+           color:rgb(214, 255, 252); 
+           height:4rem;
+           padding-left: 2rem;
+           padding-top:1rem;
+           font-size: 2rem;
+   
+        }
+        .gameContainer{
+            /* background-color:pink; */
+            display: flex;
+            justify-content:center;
+            padding: 2.5rem;
+        }
+        .container{
+            display:grid;
+            grid-template-rows: repeat(3,10vw);
+            grid-template-columns: repeat(3,10vw);
+            
+        }
+        .box{
+            border:solid;
+            color: rgb(95, 164, 141);
+            border-width: 5px;
+            /* background-color:rgb(214, 255, 252);  */
+    
+            text-align: center;
+            font-size: 8vw;
+            cursor:pointer;
+            display:flex;
+            justify-content: center ;
+            align-items: center;
+        }
+        /* img{
+            height:40%;
+            width:30%;
+            display:None;
+            
+        } */
+            .txt{
+            color:rgb(24, 134, 99);
+            text-shadow: 1px 0px 1px;
+            font-size: 40px;
+        }
+        .info{
+            font-size: 30px;
+        }
+        
+        .box:hover{
+            background-color: rgb(118, 247, 236);
+        }
+        .br-0{
+            border-right: 0;
+        }
+        .bl-0{
+            border-left: 0;
+        }
+        .bt-0{
+            border-top: 0;
+        }
+        .bb-0{
+            border-bottom: 0;
+        }
+        .reset{
+            border:solid;
+            border-width: 2px;
+            border-radius: 10px;
+            /* border-color:rgb(98, 241, 234); */
+            background-color: rgb(118, 247, 236);
+            color:rgb(95, 164, 141);
+            height:2.5rem;
+            cursor:pointer;
+            /* box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.2); */
+            padding:5%; 
+        
+        }
+        .reset:hover{
+            transform:scale(1.2);
+        }
+        .gameInfo{
+            margin-left: 5rem;
+        }
+        li{
+            list-style: None;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>MyTicTacToe.com</li>
+        </ul>
+    </nav>
+    <div class="gameContainer">
+        <div class="container">
+            <div class="box bt-0 bl-0"><span class="boxtext"></span></div>
+            <div class="box bt-0"><span class="boxtext"></span></div>
+            <div class="box bt-0 br-0"><span class="boxtext"></span></div>
+            <div class="box bl-0"><span class="boxtext"></span></div>
+            <div class="box"><span class="boxtext"></span></div>
+            <div class="box br-0"><span class="boxtext"></span></div>
+            <div class="box bl-0 bb-0"><span class="boxtext"></span></div>
+            <div class="box bb-0"><span class="boxtext"></span></div>
+            <div class="box br-0 bb-0"><span class="boxtext"></span></div>
+        </div>
+        <div class="gameInfo">
+            <span id="element" class="txt"><i></i></span>
+            <br>
+            <div>
+                <span class="info">Turn for X</span>
+                <br>
+                <br>
+                <button id="reset" class="reset">Reset</button>
+            </div>
+            <div class="imgbox">
+                <img src="">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script>
+    var typed = new Typed('#element', {
+        strings: ['Welcome to My Tic Tac Toe'],
+        typeSpeed: 40,
+    });
+</script>
+
+      <script>
+        
+        console.log("Welcome To Tic Tac Toe");
+
+        let turnaud = new Audio("turn.mp3");
+        let gameover=new Audio("gameend.mp3");
+
+        let turn ="X";
+        let isGameOver=false;
+
+
+        //function to change turn 
+        const changeTurn=()=>{   
+            turn = turn === "X"?"0":"X";
+            return turn;
+        };
+        //function to check for a win
+        const checkWin=()=>{
+            let boxtext= document.getElementsByClassName("boxtext");
+            let wins=[
+                [0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6],[0,3,6],[1,4,7],[2,5,8]
+            ];
+            wins.forEach(e=>{
+                if (boxtext[e[0]].innerText === boxtext[e[1]].innerText &&
+                    boxtext[e[1]].innerText === boxtext[e[2]].innerText && 
+                    boxtext[e[0]].innerText !== ""){
+
+                    document.querySelector(".info").innerText = boxtext[e[0]].innerText + "   Won!";
+                    isGameOver=true;
+                    gameover.play();
+                    let imgbox=document.querySelector(".imgbox");
+                    imgbox.innerHTML="";
+
+                    let img=document.createElement("img");
+                    
+                
+                    img.src="pinkjoy.gif";
+                    img.style.display="block";
+                    img.style.height="40%";
+                    img.style.width="60%";
+                    img.style.textAlign="center";
+                    
+                    imgbox.appendChild(img);
+
+                    
+
+                }
+            })
+        }
+
+        // Game Logic
+        let boxes = document.getElementsByClassName("box");
+        Array.from(boxes).forEach(element =>{
+            let boxtext= element.querySelector('.boxtext');
+            element.addEventListener('click',()=>{
+                if(boxtext.innerText==='' && !isGameOver){
+                    boxtext.innerText=turn;
+                    turnaud.play();
+                    checkWin();
+                    if(!isGameOver){
+                        turn = changeTurn();
+                        document.getElementsByClassName("info")[0].innerText="Turn for "+turn;
+                    }
+                }
+            })
+        })
+
+
+
+        // Restet Button Functionality
+        let Reset=document.getElementById("reset");
+        Reset.addEventListener("click",()=>{
+            document.querySelectorAll(".boxtext").forEach(e=>e.innerText="");
+            turn="X";
+            isGameOver=false;
+            document.querySelector(".info").innerText="Turn for X";
+            gameover.pause()
+
+            let img =document.querySelector(".imgbox img");
+            img.src="";
+            img.style.display="none";
+        });
+      </script>
+
+</body>
+
+</html>

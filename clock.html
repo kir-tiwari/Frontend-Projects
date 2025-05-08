@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>World Clock</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <style>
+    .navbar {
+      height: 5rem;
+    }
+    .navbar-brand {
+      color: white;
+    }
+    .container {
+      border: solid;
+      border-radius: 10px;
+      padding: 3rem;
+    }
+    .time-card {
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background-color: #f8f9fa;
+    }
+    .city-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .clock-time {
+      font-size: 1.25rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">World Clock</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container my-5">
+      <h1 class="display-5 fw-bold">Your Local Time - <span id="local-time"></span></h1>
+      <p class="fs-4">We are here to show you the time in different countries.</p>
+
+      <div class="row mt-4" id="world-times">
+        <!-- Dynamic time cards will appear here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Time Script -->
+  <script>
+    const cities = [
+      { name: "India", timeZone: "Asia/Kolkata" },  // India placed first
+      { name: "New York", timeZone: "America/New_York" },
+      { name: "London", timeZone: "Europe/London" },
+      { name: "Tokyo", timeZone: "Asia/Tokyo" },
+      { name: "Sydney", timeZone: "Australia/Sydney" },
+      { name: "Dubai", timeZone: "Asia/Dubai" },
+      { name: "Paris", timeZone: "Europe/Paris" },
+      { name: "Mumbai", timeZone: "Asia/Kolkata" }, // India is also listed here (optional)
+    ];
+
+    function formatTime(date, timeZone) {
+      return new Intl.DateTimeFormat("en-GB", {
+        timeZone,
+        timeStyle: "medium",
+        dateStyle: "medium"
+      }).format(date);
+    }
+
+    function updateClocks() {
+      const now = new Date();
+      document.getElementById('local-time').innerText = now.toLocaleTimeString();
+
+      const container = document.getElementById('world-times');
+      container.innerHTML = '';
+
+      cities.forEach(city => {
+        const time = formatTime(now, city.timeZone);
+
+        const col = document.createElement('div');
+        col.className = 'col-md-4 my-2';
+        col.innerHTML = `
+          <div class="time-card">
+            <div class="city-name">${city.name}</div>
+            <div class="clock-time">${time}</div>
+          </div>
+        `;
+        container.appendChild(col);
+      });
+    }
+
+    // Initial load and interval update
+    updateClocks();
+    setInterval(updateClocks, 1000);
+  </script>
+</body>
+</html>
